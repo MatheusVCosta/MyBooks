@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">My Books</string>
+    <string name="pequeno_principe">
+        O Pequeno Príncipe" é uma obra literária do escritor francês Antoine de Saint-Exupéry, que conta a história da amizade entre um homem frustrado por ninguém compreender os seus desenhos, com um principezinho que habita um asteroide no espaço
+    </string>
+    <string name="cinquenta_tons">
+        Christian Grey (Jamie Dornan) é jovem, discreto, podre de rico, dono de um tanquinho invejável; Anastasia Steele (Dakota Johnson) é mais jovem ainda, estudante de literatura e inocente. É a partir do encontro desses dois personagens que se constrói a trama central de Cinquenta Tons de Cinza.
+    </string>
+
+    <string name="kotlin">
+    A linguagem Kotlin vem ganhando cada vez mais destaque no cenário do desenvolvimento de aplicativos. Projetada para ter uma interoperabilidade total com código Java, Kotlin tem sido a primeira escolha na criação de aplicativos Android, sendo multiparadigma e multiplataforma. Trata-se de uma linguagem moderna, concisa e poderosa, oferecendo segurança, clareza e suporte a ferramentas de alta produtividade.
+
+Neste livro, Kassiano Resende apresenta a linguagem Kotlin tanto para quem já conhece Java ou não, com uma didática prática e divertida. Você verá todos os passos necessários para construir e publicar na Play Store aplicações mobile em Kotlin, no ambiente de desenvolvimento Android Studio. O escopo das aplicações apresentadas no livro vai além das funcionalidades da linguagem, com a utilização de banco de dados, acesso a APIs REST e funcionalidades dos smartphones, como notificações, acesso à galeria de imagens, câmera e localização através de GPS.
+
+    </string>
 </resources>
