@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Criado cadastros fake
         Livros = new livro[]{
-                new livro(1,Utils.toByteArray(getResources(),R.drawable.pequeno_principe),"O pequeno principe", getString(R.string.pequeno_principe)),
-                new livro(2,Utils.toByteArray(getResources(),R.drawable.cinquenta_tons_cinza),"Cinquenta tons de cinza", getString(R.string.cinquenta_tons)),
-                new livro(3,Utils.toByteArray(getResources(),R.drawable.kotlin_android),"O pequeno principe", getString(R.string.kotlin))
+//                new livro(1,Utils.toByteArray(getResources(),R.drawable.pequeno_principe),"O pequeno principe", getString(R.string.pequeno_principe)),
+//                new livro(2,Utils.toByteArray(getResources(),R.drawable.cinquenta_tons_cinza),"Cinquenta tons de cinza", getString(R.string.cinquenta_tons)),
+//                new livro(3,Utils.toByteArray(getResources(),R.drawable.kotlin_android),"O pequeno principe", getString(R.string.kotlin))
 
         };
 
