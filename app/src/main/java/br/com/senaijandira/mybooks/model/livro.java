@@ -1,10 +1,20 @@
 package br.com.senaijandira.mybooks.model;
 
-public class livro {
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+//Anotação para marca que essa class precisa ter uma tabela
+@Entity
+public class livro {
+    //Pra essa variavel ser a chave primaria
+    @PrimaryKey (autoGenerate = true)
     private int id;
 
     //A imagem de capa é um array de bytes
+    //o tipo da capa é guardado no tipo blob
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte [] capa;
 
     private String titulo;
@@ -14,8 +24,7 @@ public class livro {
 
     public livro(){}
 
-    public livro(int id, byte[] capa, String titulo, String descricao){
-        this.id=id;
+    public livro(byte[] capa, String titulo, String descricao){
         this.capa = capa;
         this.titulo = titulo;
         this.descricao = descricao;

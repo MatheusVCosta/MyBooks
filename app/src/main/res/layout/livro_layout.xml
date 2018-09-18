@@ -21,8 +21,10 @@
                 android:id="@+id/imgLivroCapa"
                 android:src="@drawable/pequeno_principe"
                 />
+            <!--A propriedade weight serve para dividir o tamanho de cada layout-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
@@ -44,6 +46,15 @@
                     />
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_delete_black_18dp"
+                android:id="@+id/imgDeleteLivro"
+                android:layout_margin="5dp"
+                android:onClick="deletar"
+                />
 
         </LinearLayout>
 
