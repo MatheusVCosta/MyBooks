@@ -3,7 +3,6 @@ package br.com.senaijandira.mybooks;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDataBase;
@@ -25,6 +25,7 @@ public class CadastroActivity extends AppCompatActivity {
     Bitmap livroCapa;
     ImageView imgLivroCapa;
     EditText txtTitulo, txtDescricao;
+    byte[] capa;
 
     //variavel final é um variavel que não muda o valor
     private final int COD_REQ_GALERIA = 101;
@@ -86,11 +87,15 @@ public class CadastroActivity extends AppCompatActivity {
         }
         else{
             alert("Salva", "Salvo com sucesso");
-            final byte[] capa = Utils.toByteArray(livroCapa);
 
+            byte[] capa = Utils.toByteArray(livroCapa);
             String titulo = txtTitulo.getText().toString();
-
             String descricao = txtDescricao.getText().toString();
+
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            livroCapa.compress(Bitmap.CompressFormat.JPEG,50,stream);
+            capa = stream.toByteArray();
 
             Livro livro = new Livro(capa, titulo, descricao);
 

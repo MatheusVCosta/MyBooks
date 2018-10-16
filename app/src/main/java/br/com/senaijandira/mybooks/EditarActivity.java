@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDataBase;
@@ -58,8 +59,6 @@ public class EditarActivity extends AppCompatActivity {
         txtTitulo.setText(titulo);
         txtDescricao.setText(descricao);
 
-
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -94,10 +93,16 @@ public class EditarActivity extends AppCompatActivity {
     public void editarLivro(View v) {
 
         byte[] livroCapa = Utils.toByteArray(capa);
-
         String titulo = txtTitulo.getText().toString();
-
         String descricao = txtDescricao.getText().toString();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        capa.compress(Bitmap.CompressFormat.JPEG,50,stream);
+        livroCapa = stream.toByteArray();
+
+
+
+
 
         if (livroCapa == null) {
             alert("Aviso", "Insira uma imagem");

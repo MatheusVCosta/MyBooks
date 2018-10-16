@@ -50,8 +50,9 @@ public class OneFragment extends Fragment {
 
         return v;
     }
+
     @Override
-    public void onResume() {
+    public void onResume(){
 
         super.onResume();
         //Fazer o select no banco e jogar na variavel livro e mostrar na tela
