@@ -1,40 +1,49 @@
 package br.com.senaijandira.mybooks.model;
 
-
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-//Anotação para marca que essa class precisa ter uma tabela
-@Entity
-public class livro {
-    //Pra essa variavel ser a chave primaria
-    @PrimaryKey (autoGenerate = true)
+@Entity (tableName = "livrosLidos")
+public class LivrosLidos{
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
-    //A imagem de capa é um array de bytes
-    //o tipo da capa é guardado no tipo blob
+    @ForeignKey(entity = Livro.class,
+            childColumns = "idLivros",
+            parentColumns = "id")
+    private int idLivros;
+
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte [] capa;
-
     private String titulo;
     private String descricao;
 
+    @Ignore
+    public LivrosLidos(){}
 
-
-    public livro(){}
-
-    public livro(byte[] capa, String titulo, String descricao){
-        this.capa = capa;
-        this.titulo = titulo;
-        this.descricao = descricao;
+    public LivrosLidos(int idLivros){
+        this.setIdLivros(idLivros);
     }
+
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdLivros() {
+        return idLivros;
+    }
+
+    public void setIdLivros(int idLivros) {
+        this.idLivros = idLivros;
     }
 
     public byte[] getCapa() {
@@ -60,5 +69,4 @@ public class livro {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
 }

@@ -27,9 +27,9 @@ public class Utils {
         return blob.toByteArray();
     }
 
-
-    public static Bitmap toBitmap(byte[] imagem){
-        return BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+    public  static Bitmap toBitmap(byte[] imagem){
+        return BitmapFactory.decodeByteArray(imagem,0, imagem.length);
     }
+
 
 }

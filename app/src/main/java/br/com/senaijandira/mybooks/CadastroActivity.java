@@ -3,6 +3,7 @@ package br.com.senaijandira.mybooks;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +17,7 @@ import android.widget.ImageView;
 import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDataBase;
-import br.com.senaijandira.mybooks.model.livro;
+import br.com.senaijandira.mybooks.model.Livro;
 
 public class CadastroActivity extends AppCompatActivity {
     //ORM - sistema de craição de banco de dados através de uma class
@@ -77,28 +78,26 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
+
+
     public void salvaLivro(View view) {
         if(txtDescricao.getText().toString() == "" || txtTitulo.getText().toString() == "" || livroCapa == null){
             alert("Erro", "Preencha todos os campos e adicione a imagem");
         }
         else{
             alert("Salva", "Salvo com sucesso");
-            byte[] capa = Utils.toByteArray(livroCapa);
+            final byte[] capa = Utils.toByteArray(livroCapa);
 
             String titulo = txtTitulo.getText().toString();
 
             String descricao = txtDescricao.getText().toString();
 
-            livro Livro = new livro(capa, titulo, descricao);
-            //Inserir a variavel estática da MainActivity
-//            int tamanhoArray = MainActivity.Livros.length;
-//            MainActivity.Livros = Arrays.copyOf(MainActivity.Livros, tamanhoArray + 1);
-//            MainActivity.Livros[tamanhoArray] = Livro;
+            Livro livro = new Livro(capa, titulo, descricao);
 
             //inserir no banco de dados
-            myBooksBD.daoLivro().inserir(Livro);
+            myBooksBD.daoLivro().inserir(livro);
+
         }
-     
 
     }
     public void alert(String titulo, String mensagem){

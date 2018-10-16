@@ -13,4 +13,5 @@
 Neste livro, Kassiano Resende apresenta a linguagem Kotlin tanto para quem já conhece Java ou não, com uma didática prática e divertida. Você verá todos os passos necessários para construir e publicar na Play Store aplicações mobile em Kotlin, no ambiente de desenvolvimento Android Studio. O escopo das aplicações apresentadas no livro vai além das funcionalidades da linguagem, com a utilização de banco de dados, acesso a APIs REST e funcionalidades dos smartphones, como notificações, acesso à galeria de imagens, câmera e localização através de GPS.
 
     </string>
+    <string name="title_activity_editar">EditarActivity</string>
 </resources>

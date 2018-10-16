@@ -1,110 +1,102 @@
 package br.com.senaijandira.mybooks;
 
-import android.arch.persistence.room.Room;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.senaijandira.mybooks.OneFragment.OneFragment;
+import br.com.senaijandira.mybooks.OneFragment.ThreeFragment;
+import br.com.senaijandira.mybooks.OneFragment.TwoFragment;
 import br.com.senaijandira.mybooks.adapter.LivroAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDataBase;
-import br.com.senaijandira.mybooks.model.livro;
 
 public class MainActivity extends AppCompatActivity {
 
     //ListView que carregará os livros
     ListView lstViewLivros;
 
-    public static livro[] Livros;
-
     //variavel de acesso ao banco
     private MyBooksDataBase myBooksDB;
     //Adapter para criar a lista de livros
     LivroAdapter adapter;
+
+    Toolbar toolbar;
+    ViewPager viewPager;
+    TabLayout tabLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Instanciando a variavel de acesso ao banco
-        myBooksDB = Room.databaseBuilder(getApplicationContext(), MyBooksDataBase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        lstViewLivros = findViewById(R.id.lstViewLivros);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-        adapter = new LivroAdapter(this, myBooksDB);
-        //Agora quem cria a lista vai ser o adapter
-        lstViewLivros.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        //Fazer o select no banco e jogar na variavel livro e mostrar na tela
-        Livros = myBooksDB.daoLivro().selecionarTodos();
-
-        //limpando a listView
-        adapter.clear();
-        //Adicionando os livros da lista
-        adapter.addAll(Livros);
 
     }
-    public void deletarLivro(final livro livro, final View v) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Deletar");
-        alert.setMessage("Tem certeza que deseja deletar");
-        alert.setNegativeButton("não", null);
-        alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                myBooksDB.daoLivro().deletar(livro);
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new OneFragment(), "Livros");
+        adapter.addFragment(new TwoFragment(), "Livros Lidos");
+        adapter.addFragment(new ThreeFragment(), "Livros para ler");
 
-                //lstViewLivros.removeView(v);
-            }
-        });
-        alert.show();
+        viewPager.setAdapter(adapter);
     }
-//    public void criarLivro(final livro Livro, ViewGroup root){
-//
-//        //v ta recebendo um linearLayout que ta carregando as imagens e textViews
-//        //esta carregando o linearlayout do livro_layout
-//        final View v = LayoutInflater.from(this).inflate(R.layout.livro_layout,root,false);//layoutInfalte carrega um xml dentro do código
-//
-//        ImageView imgLivroCapa = v.findViewById(R.id.imgLivroCapa);
-//        TextView txtLivroTitulo = v.findViewById(R.id.txtTituloLivro);//só vai procurar um elemento dentro da variavel v
-//        TextView txtLivroDescriacao = v.findViewById(R.id.txtLivroDescricao);
-//
-//
-//        //img lixeira
-//        ImageView imgDeleImageLivro = v.findViewById(R.id.imgDeleteLivro);
-//
-//        //setando o click da lixeira
-//        imgDeleImageLivro.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                deletarLivro(Livro, v);
-//            }
-//        });
-//
-//
-//        //Setando a imagem
-//        imgLivroCapa.setImageBitmap(Utils.toBitmap(Livro.getCapa()));
-//        //setando o titulo
-//        txtLivroTitulo.setText(Livro.getTitulo());
-//        //setando a descricao
-//        txtLivroDescriacao.setText(Livro.getDescricao());
-//
-//        //mostrar na tela
-//        root.addView(v);
-//
-//    }
+
+
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
+
     public void abrirCadastro(View v){//quando for abrir pelo xml usar o View v
         startActivity(new Intent(this, CadastroActivity.class));
     }
